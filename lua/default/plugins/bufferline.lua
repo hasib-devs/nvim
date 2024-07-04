@@ -10,7 +10,7 @@ return {
 				mode = "buffers",
 				diagnostics = "nvim_lsp",
 				indicator = {
-					style = "underline",
+					-- style = "underline",
 				},
 				offsets = {
 					{

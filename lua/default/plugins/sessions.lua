@@ -28,6 +28,7 @@ return {
 			-- auto_session_use_git_branch = true,
 			vim.keymap.set("n", "<Leader>ls", require("auto-session.session-lens").search_session, {
 				noremap = true,
+				desc = "Search session",
 			}),
 		})
 	end,
