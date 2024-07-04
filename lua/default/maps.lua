@@ -37,3 +37,10 @@ map("n", "<C-Down>", "<C-w>-")
 
 vim.cmd([[:amenu 10.100 mousemenu.Goto\ Definition <cmd>lua vim.lsp.buf.definition()<CR>]])
 vim.cmd([[:amenu 10.110 mousemenu.References <cmd>lua vim.lsp.buf.references()<CR>]])
+
+map("n", "gD", vim.lsp.buf.declaration)
+map("n", "gd", vim.lsp.buf.definition)
+map("n", "gi", vim.lsp.buf.implementation)
+map("n", "<leader>sh", vim.lsp.buf.signature_help)
+map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder)
+map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder)
