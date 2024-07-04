@@ -18,10 +18,6 @@ return {
 			float_opts = {
 				border = "rounded",
 				winblend = 0,
-				highlights = {
-					border = "Normal",
-					background = "Normal",
-				},
 			},
 			winbar = {
 				enabled = true,

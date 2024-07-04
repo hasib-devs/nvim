@@ -22,6 +22,7 @@ return {
 				},
 				-- separator_style = "slope",
 				themable = false,
+				truncate_names = false,
 			},
 		})
 	end,
