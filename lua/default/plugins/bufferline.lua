@@ -3,8 +3,26 @@ return {
 	version = "*",
 	dependencies = "nvim-tree/nvim-web-devicons",
 	config = function()
-		require("bufferline").setup({
-			options = {},
+		local bufferline = require("bufferline")
+
+		bufferline.setup({
+			options = {
+				mode = "buffers",
+				diagnostics = "nvim_lsp",
+				indicator = {
+					style = "underline",
+				},
+				offsets = {
+					{
+						filetype = "neo-tree",
+						text = "File Explorer",
+						highlight = "Directory",
+						text_align = "left",
+					},
+				},
+				-- separator_style = "slope",
+				themable = false,
+			},
 		})
 	end,
 }
