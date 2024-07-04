@@ -1,6 +1,16 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+vim.keymap.set("n", "<C-h>", ":TmuxNavigateLeft<CR>")
+vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<CR>")
+vim.keymap.set("n", "<C-k>", ":TmuxNavigateUp<CR>")
+vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<CR>")
+
 local function map(mode, lhs, rhs)
 	vim.keymap.set(mode, lhs, rhs, { silent = true })
 end
@@ -44,6 +54,9 @@ map("n", "gi", vim.lsp.buf.implementation)
 map("n", "<leader>sh", vim.lsp.buf.signature_help)
 map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder)
 map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder)
+map("n", "<leader>wl", vim.lsp.buf.list_workspace_folders)
+-- hover
+map("n", "<leader>h", vim.lsp.buf.hover)
 
 map({ "n", "v" }, "<S-h>", "<cmd>BufferLineCyclePrev<cr>")
 map({ "n", "v" }, "<S-l>", "<cmd>BufferLineCycleNext<cr>")
