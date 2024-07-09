@@ -9,6 +9,7 @@ map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr><ESC>", { desc = "Save" })
 
 -- Quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit" })
+map("n", "<leader>x", ":bufdo bdelete<CR>", { desc = "Close Buffer" })
 
 -- Exit insert mode
 map("i", "jk", "<ESC>", { desc = "Exit Insert Mode" })
