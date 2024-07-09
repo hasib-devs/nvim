@@ -19,8 +19,8 @@ o.backup = true -- automatically save a backup file
 o.backupdir:remove(".") -- keep backups out of the current directory
 o.wrap = false
 o.wildmode = "longest:full,full" -- complete the longest common match, and allow tabbing the results to fully complete them
-o.scrolloff = 999
-o.sidescrolloff = 8
+-- o.scrolloff = 999
+-- o.sidescrolloff = 8
 o.confirm = true -- ask for confirmation instead of erroring
 o.signcolumn = "yes"
 o.ignorecase = true

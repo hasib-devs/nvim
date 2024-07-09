@@ -3,14 +3,6 @@ local map = vim.keymap.set
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- vim.api.nvim_create_autocmd("InsertEnter", {
--- 	group = vim.api.nvim_create_augroup("center_on_insert", {}),
--- 	pattern = "*",
--- 	callback = function()
--- 		vim.cmd.normal({ bang = true, "zz" })
--- 	end,
--- })
-
 -- Save
 map({ "n", "v" }, "<leader>w", "<cmd> w <cr>", { desc = "Save" })
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr><ESC>", { desc = "Save" })
@@ -65,12 +57,6 @@ map({ "n", "v" }, "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", { desc = "Close 
 map({ "n", "v" }, "<leader>bo", "<Cmd>BufferLineCloseOther<CR>", { desc = "Close Other Buffers" })
 map({ "n", "v" }, "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", { desc = "Pin Buffer" })
 map({ "n", "v" }, "<leader>bb", "<Cmd>BufferLinePick<CR>", { desc = "Pick Buffer" })
-
--- Scroll to center
--- map("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
--- map("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
--- map("n", "n", "nzzzv", { desc = "Next" })
--- map("n", "N", "Nzzzv", { desc = "Previous" })
 
 -- Tmux Navigation
 map("n", "<C-h>", ":TmuxNavigateLeft<CR>", { desc = "Navigate Left" })
