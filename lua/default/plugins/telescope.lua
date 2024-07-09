@@ -5,19 +5,16 @@ return {
 	config = function()
 		require("telescope").setup({
 			defaults = {
+				path_display = { truncate = 1 },
+				sorting_strategy = "ascending",
+				file_ignore_patterns = { ".git/", "node_modules/" },
+				wrap_results = true,
 				layout_config = {
 					prompt_position = "top",
+					vertical = { width = { padding = 0 } },
+					horizontal = { width = { padding = 0 } },
 				},
 			},
 		})
-
-		-- set keymaps
-		local keymap = vim.keymap
-
-		keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-		keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Fuzzy find recent files" })
-		keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find string in cwd" })
-		keymap.set("n", "<leader>fs", "<cmd>Telescope git_status<cr>", { desc = "Find string under cursor in cwd" })
-		keymap.set("n", "<leader>fc", "<cmd>Telescope git commits<cr>", { desc = "Find todos" })
 	end,
 }
