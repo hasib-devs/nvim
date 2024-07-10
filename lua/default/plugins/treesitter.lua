@@ -12,7 +12,7 @@ return {
 
 			modules = {},
 			sync_install = false,
-			auto_install = false,
+			auto_install = true,
 			ignore_install = {},
 			parser_install_dir = nil,
 			highlight = {
@@ -38,7 +38,6 @@ return {
 				"vim",
 				"dockerfile",
 				"gitignore",
-				"c",
 				"rust",
 			},
 			incremental_selection = {
