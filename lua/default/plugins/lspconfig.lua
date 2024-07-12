@@ -81,6 +81,13 @@ return {
 					capabilities = capabilities,
 				})
 			end,
+			-- add one for PHP intelephense
+			["intelephense"] = function()
+				nvim_lsp["intelephense"].setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
+				})
+			end,
 		})
 	end,
 }
