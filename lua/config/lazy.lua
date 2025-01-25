@@ -1,4 +1,4 @@
---sBootstrap lazy.nvim
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -23,6 +23,9 @@ require("lazy").setup({
 		-- the colorscheme should be available when starting Neovim
 		"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 		{
+			"christoomey/vim-tmux-navigator",
+		},
+		{
 			"folke/tokyonight.nvim",
 			lazy = false, -- make sure we load this during startup if it is your main colorscheme
 			priority = 1000, -- make sure to load this before all the other start plugins
@@ -43,6 +46,61 @@ require("lazy").setup({
 					topdelete = { text = "‾" },
 					changedelete = { text = "~" },
 				},
+				on_attach = function(bufnr)
+					local gitsigns = require("gitsigns")
+
+					local function map(mode, l, r, opts)
+						opts = opts or {}
+						opts.buffer = bufnr
+						vim.keymap.set(mode, l, r, opts)
+					end
+
+					-- Navigation
+					map("n", "]c", function()
+						if vim.wo.diff then
+							vim.cmd.normal({ "]c", bang = true })
+						else
+							gitsigns.nav_hunk("next")
+						end
+					end, { desc = "Jump to next git [c]hange" })
+
+					map("n", "[c", function()
+						if vim.wo.diff then
+							vim.cmd.normal({ "[c", bang = true })
+						else
+							gitsigns.nav_hunk("prev")
+						end
+					end, { desc = "Jump to previous git [c]hange" })
+
+					-- Actions
+					-- visual mode
+					map("v", "<leader>hs", function()
+						gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+					end, { desc = "git [s]tage hunk" })
+					map("v", "<leader>hr", function()
+						gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+					end, { desc = "git [r]eset hunk" })
+					-- normal mode
+					map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "git [s]tage hunk" })
+					map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "git [r]eset hunk" })
+					map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "git [S]tage buffer" })
+					map("n", "<leader>hu", gitsigns.stage_hunk, { desc = "git [u]ndo stage hunk" })
+					map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "git [R]eset buffer" })
+					map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "git [p]review hunk" })
+					map("n", "<leader>hb", gitsigns.blame_line, { desc = "git [b]lame line" })
+					map("n", "<leader>hd", gitsigns.diffthis, { desc = "git [d]iff against index" })
+					map("n", "<leader>hD", function()
+						gitsigns.diffthis("@")
+					end, { desc = "git [D]iff against last commit" })
+					-- Toggles
+					map(
+						"n",
+						"<leader>tb",
+						gitsigns.toggle_current_line_blame,
+						{ desc = "[T]oggle git show [b]lame line" }
+					)
+					map("n", "<leader>tD", gitsigns.preview_hunk_inline, { desc = "[T]oggle git show [D]eleted" })
+				end,
 			},
 		},
 
@@ -340,19 +398,18 @@ require("lazy").setup({
 				--  - settings (table): Override the default settings passed when initializing the server.
 				--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 				local servers = {
-					-- clangd = {},
-					-- gopls = {},
-					-- pyright = {},
-					-- rust_analyzer = {},
-					-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-					--
-					-- Some languages (like typescript) have entire language plugins that can be useful:
-					--    https://github.com/pmizio/typescript-tools.nvim
-					--
-					-- But for many setups, the LSP (`ts_ls`) will work just fine
-					-- ts_ls = {},
-					--
-
+					html = {},
+					cssls = {},
+					tailwindcss = {},
+					emmet_ls = {},
+					ts_ls = {},
+					jsonls = {},
+					bashls = {},
+					gopls = {},
+					intelephense = {},
+					rust_analyzer = {},
+					yamlls = {},
+					prettier = {},
 					lua_ls = {
 						-- cmd = { ... },
 						-- filetypes = { ... },
@@ -438,6 +495,14 @@ require("lazy").setup({
 				end,
 				formatters_by_ft = {
 					lua = { "stylua" },
+					javascript = { "prettier" },
+					typescript = { "prettier" },
+					javascriptreact = { "prettier" },
+					typescriptreact = { "prettier" },
+					css = { "prettier" },
+					html = { "prettier" },
+					json = { "prettier" },
+					yaml = { "prettier" },
 					-- Conform can also run multiple formatters sequentially
 					-- python = { "isort", "black" },
 					--
@@ -643,6 +708,120 @@ require("lazy").setup({
 			--    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
 			--    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
 			--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+		},
+
+		{
+			"windwp/nvim-autopairs",
+			event = "InsertEnter",
+			-- Optional dependency
+			dependencies = { "hrsh7th/nvim-cmp" },
+			config = function()
+				require("nvim-autopairs").setup({})
+				-- If you want to automatically add `(` after selecting a function or method
+				local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+				local cmp = require("cmp")
+				cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			end,
+		},
+		{ -- Add indentation guides even on blank lines
+			"lukas-reineke/indent-blankline.nvim",
+			-- Enable `lukas-reineke/indent-blankline.nvim`
+			-- See `:help ibl`
+			main = "ibl",
+			opts = {},
+		},
+
+		{
+			"nvim-neo-tree/neo-tree.nvim",
+			version = "*",
+			dependencies = {
+				"nvim-lua/plenary.nvim",
+				"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+				"MunifTanjim/nui.nvim",
+			},
+			cmd = "Neotree",
+			keys = {
+				{ "<leader>e", ":Neotree reveal<CR>", desc = "NeoTree reveal", silent = true },
+			},
+			opts = {
+				close_if_last_window = true,
+				event_handlers = {
+					{
+						event = "file_opened",
+						handler = function()
+							-- Automatically close Neo-Tree when a file is opened
+							require("neo-tree.command").execute({ action = "close" })
+						end,
+					},
+				},
+				enable_git_status = true,
+				filesystem = {
+					window = {
+						mappings = {
+							["<leader>e"] = "close_window",
+							["l"] = "open",
+							["h"] = "close_node",
+						},
+					},
+				},
+			},
+		},
+
+		{
+			"akinsho/toggleterm.nvim",
+			version = "*",
+			config = function()
+				require("toggleterm").setup({
+					size = 40,
+					open_mapping = [[<c-t>]],
+					hide_numbers = true, -- hide the number column in toggleterm buffers
+					shade_filetypes = {},
+					shade_terminals = true,
+					shading_factor = 2, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+					start_in_insert = true,
+					insert_mappings = true, -- whether or not the open mapping applies in insert mode
+					persist_size = false,
+					direction = "float",
+					close_on_exit = true, -- close the terminal window when the process exits
+					shell = nil, -- change the default shell
+					float_opts = {
+						border = "rounded",
+						winblend = 0,
+					},
+					winbar = {
+						enabled = true,
+						name_formatter = function(term) --  term: Terminal
+							return term.count
+						end,
+					},
+				})
+
+				local Terminal = require("toggleterm.terminal").Terminal
+				local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+
+				function _LAZYGIT_TOGGLE()
+					lazygit:toggle()
+				end
+
+				vim.api.nvim_set_keymap(
+					"n",
+					"<leader>lg",
+					"<cmd>lua _LAZYGIT_TOGGLE()<CR>",
+					{ noremap = true, silent = true, desc = "Lazygit" }
+				)
+			end,
+		},
+
+		{
+			"rmagatti/auto-session",
+			lazy = false,
+			opts = {
+				suppressed_dirs = {
+					"/Users/wedevs/Desktop/testing",
+					"/Users/wedevs/Desktop/projects",
+				},
+				-- log_level = 'debug',
+			},
 		},
 	},
 	-- Configure any other settings here. See the documentation for more details.

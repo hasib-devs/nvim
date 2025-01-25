@@ -24,7 +24,8 @@ else
 	map({ "i" }, "jk", "<Esc><cmd> w <cr>", { desc = "Save" })
 
 	-- Quit
-	map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit" })
+	map("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit Abort" })
+	map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 
 	-- Exit insert mode
 	map("i", "jj", "<ESC>", { desc = "Exit Insert Mode" })
@@ -63,10 +64,10 @@ else
 	o.signcolumn = "yes" -- Keep signcolumn on by default
 
 	-- Decrease update time
-	o.updatetime = 250
+	-- o.updatetime = 250
 
 	-- Decrease mapped sequence wait time
-	o.timeoutlen = 300
+	-- o.timeoutlen = 300
 	-- Don't show the mode, since it's already in the status line
 	o.showmode = false
 
