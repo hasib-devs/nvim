@@ -24,8 +24,8 @@ else
 	map({ "i" }, "jk", "<Esc><cmd> w <cr>", { desc = "Save" })
 
 	-- Quit
-	map("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit Abort" })
-	map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
+	map("n", "<leader>Q", "<cmd>q<cr>", { desc = "Quit" })
+	map("n", "<leader>q", "<cmd>bd<cr>", { desc = "Delete buffer" })
 
 	-- Exit insert mode
 	map("i", "jj", "<ESC>", { desc = "Exit Insert Mode" })
