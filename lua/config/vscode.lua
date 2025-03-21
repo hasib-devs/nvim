@@ -20,31 +20,16 @@ local function raname_symbol()
 	end)
 end
 
--- local function focus_sidebar()
--- 	code.action("workbench.action.focusSideBar")
--- end
---
--- local function focus_editor()
--- 	code.action("workbench.action.focusFirstEditorGroup")
--- end
+local function tab_prev()
+	code.call("workbench.action.previousEditorInGroup")
+end
 
--- local function buffer_list()
--- 	code.call("workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup")
--- end
-
--- local function prev_buffer()
--- 	code.call("workbench.action.navigateBack")
--- end
-
--- local function open_file_browser()
--- 	code.call("file-browser.open")
--- end
+local function tab_next()
+	code.call("workbench.action.nextEditorInGroup")
+end
 
 k({ "n" }, "<leader>e", toggle_sidebar)
 k({ "n", "x" }, "<leader>r", refactor)
 k({ "n", "x" }, "<leader>rn", raname_symbol)
--- vim.keymap.set("n", "L", "gt", { noremap = true, silent = true, expr = true })
--- k({ "n" }, "<leader>f", buffer_list)
--- k({ "n" }, "H", prev_buffer)
--- k({ "n" }, "<C-h>", focus_sidebar)
--- k({ "n" }, "<C-l>", focus_editor)
+k({ "n" }, "L", tab_next)
+k({ "n" }, "H", tab_prev)
