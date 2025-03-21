@@ -6,7 +6,7 @@ map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr><ESC>", { desc = "Save" })
 map({ "i" }, "jk", "<Esc><cmd> w <cr>", { desc = "Save" })
 
 -- Quit
-map("n", "<leader>Q", "<cmd>q<cr>", { desc = "Quit" })
+map("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit" })
 map("n", "<leader>x", "<cmd>bd<cr>", { desc = "Delete buffer" })
 
 -- Exit insert mode
@@ -24,6 +24,11 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
 map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+
+-- Buffer
+map("n", "<Tab>", ":BufferLineCycleNext<CR>", { desc = "Buffer Next", noremap = true, silent = true })
+map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", { desc = "Buffer Prev", noremap = true, silent = true })
+map("n", "<leader>bb", ":BufferLinePick<CR>", { desc = "Buffer Pick", noremap = true, silent = true })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which

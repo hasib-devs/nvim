@@ -7,7 +7,7 @@ map({ "n", "v" }, "<leader>;", "A;<Esc>", { desc = "Add semicolon to the end" })
 -- Add comma to end of the line
 map({ "n", "v" }, "<leader>,", "A,<Esc>", { desc = "Add comma to the end" })
 -- Save
-map({ "n", "v" }, "<leader>w", "<cmd> w <cr>", { desc = "Save" })
+-- map({ "n", "v" }, "<leader>w", "<cmd> w <cr>", { desc = "Save" })
 
 if vim.g.vscode then
 	require("config.vscode")

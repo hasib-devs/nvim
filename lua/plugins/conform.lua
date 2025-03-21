@@ -4,7 +4,7 @@ return { -- Autoformat
 	cmd = { "ConformInfo" },
 	keys = {
 		{
-			"<leader>fm",
+			"<leader>bf",
 			function()
 				require("conform").format({ async = true, lsp_format = "fallback" })
 			end,
@@ -40,8 +40,8 @@ return { -- Autoformat
 			html = { "prettier" },
 			json = { "prettier" },
 			yaml = { "prettier" },
-			-- cmake = { "cmake-format" },
-			-- make = { "shfmt" },
+			cmake = { "cmake-format" },
+			make = { "shfmt" },
 			c = { "clang-format" },
 			-- Conform can also run multiple formatters sequentially
 			-- python = { "isort", "black" },
