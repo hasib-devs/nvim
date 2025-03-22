@@ -15,7 +15,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
@@ -50,7 +49,10 @@ require("lazy").setup({
 			lazy = "💤 ",
 		},
 	},
+	change_detection = {
+		enabled = false, -- Disable automatic reload
+		notify = false, -- Disable notification message
+	},
 })
-
 
 vim.cmd([[colorscheme tokyonight]])

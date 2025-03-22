@@ -12,6 +12,11 @@ map({ "n", "v" }, "<leader>,", "A,<Esc>", { desc = "Add comma to the end" })
 if vim.g.vscode then
 	require("config.vscode")
 else
+	vim.api.nvim_set_hl(0, "BufferLineError", { fg = "#FF6C6B" }) -- Error: Red
+	vim.api.nvim_set_hl(0, "BufferLineWarning", { fg = "#ECBE7B" }) -- Warning: Yellow
+	vim.api.nvim_set_hl(0, "BufferLineHint", { fg = "#98be65" }) -- Hint: Green
+	vim.api.nvim_set_hl(0, "BufferLineInfo", { fg = "#51afef" }) -- Info: Blue
+
 	require("config.options")
 	require("config.keymaps")
 	require("config.lazy")
